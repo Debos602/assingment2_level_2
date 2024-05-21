@@ -5,7 +5,7 @@ import {
   TProducts,
 } from './products/products.interface';
 
-const varientSchema = new Schema<TProductVariant>({
+const variantSchema = new Schema<TProductVariant>({
   type: { type: String, required: true },
   value: { type: String, required: true },
 });
@@ -20,9 +20,9 @@ const productsSchema = new Schema<TProducts>({
   description: { type: String, required: true },
   price: { type: Number, required: true },
   category: { type: String, required: true },
-  tags: ['Smartphone', 'Apple', 'iOS'],
-  variants: [varientSchema],
-  inventory: inventorySchema,
+  tags: { type: [String], required: true }, // Ensure it's an array of strings
+  variants: { type: [variantSchema], required: false }, // Optional array of variants
+  inventory: { type: inventorySchema, required: true },
 });
 
 export const Product = model<TProducts>('Product', productsSchema);

@@ -1,19 +1,19 @@
-export type TProductVariant = {
-  type: string;
-  value: string;
-};
-
-export type TInventory = {
+export interface TInventory {
   quantity: number;
   inStock: boolean;
-};
+}
 
-export type TProducts = {
+export interface TProductVariant {
+  type: string;
+  value: string;
+}
+
+export interface TProducts {
   name: string;
   description: string;
   price: number;
   category: string;
-  tags: [];
-  variants: [TProductVariant];
+  tags: string[];
   inventory: TInventory;
-};
+  variants?: TProductVariant[];
+}
