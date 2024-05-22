@@ -6,6 +6,6 @@ const createOrder = async (orderData: TOrder) => {
   const result = await order.save();
   return result;
 };
-export const ProductServices = {
+export const OrderServices = {
   createOrder,
 };

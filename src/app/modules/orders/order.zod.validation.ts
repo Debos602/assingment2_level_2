@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
-const orderSchema = z.object({
-  email: z.string().email(),
-  productId: z.string(),
-  price: z.number().nonnegative(),
-  quantity: z.number().int().positive(),
+const orderValidationSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  productId: z.string().nonempty('Product ID is required'),
+  price: z.number().positive('Price must be a positive number'),
+  quantity: z.number().int().positive('Quantity must be a positive integer'),
 });
 
-export default orderSchema;
+export default orderValidationSchema;
