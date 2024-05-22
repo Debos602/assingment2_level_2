@@ -1,14 +1,12 @@
 import { Request, Response } from 'express';
 import { ZodError } from 'zod';
-// import orderValidationSchema from './order.zod.validation';
-import { ProductServices } from '../products/product.service';
 import { Product } from '../product.model';
 import orderValidationSchema from './order.zod.validation';
+import { orderServices } from './order.service';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
-    console.log(orderData);
 
     // Create order
 
@@ -31,7 +29,7 @@ const createOrder = async (req: Request, res: Response) => {
       });
     }
     // Create order
-    const result = await ProductServices.createOrder(orderData);
+    const result = await orderServices.createOrder(orderData);
 
     // Update inventory
     product.inventory.quantity -= parsedData.quantity;
@@ -68,6 +66,24 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const result = await orderServices.getAllOrders();
+    res.status(200).json({
+      success: true,
+      message: 'Orders fetched successfully',
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: true,
+      message: 'Order not found!',
+      error: err,
+    });
+  }
+};
+
 export const OrderControllers = {
   createOrder,
+  getAllOrders,
 };
