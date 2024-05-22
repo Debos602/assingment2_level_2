@@ -10,9 +10,16 @@ const createProduct = async (productData: TProducts) => {
   const result = await product.save(); // built in instance method
   return result;
 };
+const getProductByName = async (searchTerm: string) => {
+  const product = await Product.findOne({ name: searchTerm });
+  if (!product) {
+    throw new Error('Product not found');
+  }
+  return product;
+};
+
 const getAllProducts = async () => {
-  const result = await Product.find();
-  return result;
+  return await Product.find();
 };
 const getSingleProductFromdb = async (_id: string) => {
   const result = await Product.findOne({ _id });
@@ -25,14 +32,16 @@ const updateProductFromDb = async (_id: string, productData: TProducts) => {
   });
   return result;
 };
-const deleteProductFromDb = async (productData: TProducts) => {
-  const result = await Product.deleteMany(productData);
+const deleteProductFromDb = async (_id: string) => {
+  const result = await Product.deleteOne({ _id });
   return result;
 };
+
 export const ProductServices = {
   createProduct,
   getAllProducts,
   getSingleProductFromdb,
   updateProductFromDb,
   deleteProductFromDb,
+  getProductByName,
 };
