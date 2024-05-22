@@ -14,7 +14,6 @@ const createProduct = async (productData: TProducts) => {
 };
 const createOrder = async (OrderData: TOrder) => {
   const result = await Order.create(OrderData);
-  console.log(result);
   return result;
 
   // const product = new Product(productData);
