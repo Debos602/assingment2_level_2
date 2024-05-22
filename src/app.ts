@@ -8,20 +8,20 @@ const app: Application = express();
 //parser
 app.use(express.json());
 app.use(cors());
+
 app.use('/api/products', productRoutes);
 app.use('/api/orders', OrderRouter);
 
-app.use((req, res) => {
+app.get('/', (req: Request, res: Response) => {
+  res.send('Welcome to the Product and Order Management API!');
+});
+
+// Route not found error handler
+app.use((req: Request, res: Response) => {
   res.status(404).json({
     success: false,
     message: 'Route not found',
   });
 });
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello text');
-});
-
-console.log(process.cwd());
 
 export default app;
